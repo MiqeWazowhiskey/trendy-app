@@ -1,20 +1,9 @@
-import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
-import Layout from "./components/Layout";
+import { StyleSheet } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import UserRouter from "./components/Router/UserRouter";
+import AuthRouter from "./components/Router/AuthRouter";
+const Stack = createNativeStackNavigator();
+let dummyUser = false;
 export default function App() {
-  return (
-    <Layout>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </Layout>
-  );
+  return <>{dummyUser ? <AuthRouter /> : <UserRouter />}</>;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
