@@ -1,16 +1,16 @@
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 import React from "react";
 
-export default function Password() {
-  const [password, onChangePassword] = React.useState("");
-
+export default function Password({ onChangeText, value, onBlur, name }) {
   return (
     <TextInput
+      autoComplete="off"
       style={styles.input}
-      onChangeText={onChangePassword}
-      value={password}
-      textContentType="password"
+      onChangeText={onChangeText}
+      value={value}
       secureTextEntry={true}
+      onBlur={onBlur}
+      name={name}
     />
   );
 }

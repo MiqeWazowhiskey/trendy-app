@@ -1,15 +1,15 @@
-import { StyleSheet, TextInput, View } from "react-native";
+import { StyleSheet, TextInput } from "react-native";
 import React from "react";
 
-export default function DefaultInput() {
-  const [text, onChangeText] = React.useState("");
-
+export default function DefaultInput({ onChangeText, onBlur, name, value }) {
   return (
     <TextInput
+      autoComplete="off"
       style={styles.input}
       onChangeText={onChangeText}
-      value={text}
-      textContentType="emailAddress"
+      onBlur={onBlur}
+      name={name}
+      value={value}
     />
   );
 }
