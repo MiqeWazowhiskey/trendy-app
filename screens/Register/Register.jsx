@@ -4,7 +4,7 @@ import Layout from "../../components/Layout";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DefaultInput from "../../components/DefaultInput/DefaultInput/DefaultInput";
 import Password from "../../components/DefaultInput/Password";
-export default function Login() {
+export default function Register() {
   return (
     <Layout>
       <View style={styles.container}>
@@ -18,12 +18,11 @@ export default function Login() {
             <Text style={styles.label}>Password</Text>
             <Password />
           </View>
+          <View style={styles.defaultView}>
+            <Text style={styles.label}>Reenter Password</Text>
+            <Password />
+          </View>
           <View style={styles.buttonContainer}>
-            <View style={styles.defaultView}>
-              <TouchableOpacity style={styles.signInButton}>
-                <Text style={styles.defaultButtonText}>Sign In</Text>
-              </TouchableOpacity>
-            </View>
             <View style={styles.defaultView}>
               <TouchableOpacity style={styles.registerButton}>
                 <Text style={styles.defaultButtonText}>Register</Text>
@@ -85,7 +84,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF2800",
   },
   buttonContainer: {
-    flex: 4,
+    flex: 3,
     flexDirection: "row",
   },
 });
