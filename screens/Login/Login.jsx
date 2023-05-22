@@ -4,7 +4,18 @@ import Layout from "../../components/Layout";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DefaultInput from "../../components/DefaultInput/DefaultInput/DefaultInput";
 import Password from "../../components/DefaultInput/Password";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../Redux/actions";
 export default function Login() {
+  const dispatch = useDispatch();
+
+  const dummyUser = {
+    email: "example@gmail.com",
+  };
+
+  const handleLogIn = () => {
+    dispatch(login(dummyUser));
+  };
   return (
     <Layout>
       <View style={styles.container}>
@@ -20,7 +31,10 @@ export default function Login() {
           </View>
           <View style={styles.buttonContainer}>
             <View style={styles.defaultView}>
-              <TouchableOpacity style={styles.signInButton}>
+              <TouchableOpacity
+                style={styles.signInButton}
+                onPress={handleLogIn}
+              >
                 <Text style={styles.defaultButtonText}>Sign In</Text>
               </TouchableOpacity>
             </View>
@@ -55,6 +69,8 @@ const styles = StyleSheet.create({
   label: {
     color: "#FF9956",
     textAlign: "center",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   defaultView: {
     flex: 1,
