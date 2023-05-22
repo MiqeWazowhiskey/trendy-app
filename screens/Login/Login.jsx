@@ -6,7 +6,7 @@ import DefaultInput from "../../components/DefaultInput/DefaultInput/DefaultInpu
 import Password from "../../components/DefaultInput/Password";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/actions";
-export default function Login() {
+export default function Login({ navigation }) {
   const dispatch = useDispatch();
 
   const dummyUser = {
@@ -39,7 +39,10 @@ export default function Login() {
               </TouchableOpacity>
             </View>
             <View style={styles.defaultView}>
-              <TouchableOpacity style={styles.registerButton}>
+              <TouchableOpacity
+                style={styles.registerButton}
+                onPress={() => navigation.navigate("Register")}
+              >
                 <Text style={styles.defaultButtonText}>Register</Text>
               </TouchableOpacity>
             </View>
