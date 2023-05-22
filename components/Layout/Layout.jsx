@@ -1,6 +1,5 @@
 import { StyleSheet, Dimensions, View } from "react-native";
 import React from "react";
-
 export default function Layout({ children }) {
   return <View style={styles.container}>{children}</View>;
 }
