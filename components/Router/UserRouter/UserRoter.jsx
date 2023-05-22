@@ -6,8 +6,12 @@ const Stack = createNativeStackNavigator();
 export default function UserRouter() {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} />
+      <Stack.Navigator initialRouteName="Login">
+        <Stack.Screen
+          name="Login"
+          options={{ headerShown: false }}
+          component={Login}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
