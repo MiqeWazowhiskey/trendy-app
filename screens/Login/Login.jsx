@@ -1,53 +1,113 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../../components/Layout";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DefaultInput from "../../components/DefaultInput/DefaultInput/DefaultInput";
 import Password from "../../components/DefaultInput/Password";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/actions";
+import * as yup from "yup";
+import { Formik } from "formik";
+
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
 
-  const dummyUser = {
-    email: "example@gmail.com",
+  //login post
+  const handleLogin = async (values) => {
+    const requestBody = {
+      username: values.email,
+      password: values.password,
+    };
+    try {
+      const response = await fetch("http://10.0.2.2:5007/Auth/Login", {
+        method: "POST",
+        headers: {
+          Accept: "text/plain",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(login(data));
+      } else {
+        alert("Login failed");
+      }
+    } catch (err) {
+      alert("Something went wrong...");
+    }
   };
+  //form validation
+  const validationSchema = yup.object().shape({
+    email: yup.string().email("Invalid Email").required("Email is required"),
+    password: yup.string().required("Password is required"),
+  });
 
-  const handleLogIn = () => {
-    dispatch(login(dummyUser));
-  };
   return (
     <Layout>
       <View style={styles.container}>
         <Image source={require("../../assets/logo.png")} style={styles.logo} />
-        <SafeAreaView style={styles.inputContainer}>
-          <View style={styles.defaultView}>
-            <Text style={styles.label}>Email</Text>
-            <DefaultInput />
-          </View>
-          <View style={styles.defaultView}>
-            <Text style={styles.label}>Password</Text>
-            <Password />
-          </View>
-          <View style={styles.buttonContainer}>
-            <View style={styles.defaultView}>
-              <TouchableOpacity
-                style={styles.signInButton}
-                onPress={handleLogIn}
-              >
-                <Text style={styles.defaultButtonText}>Sign In</Text>
-              </TouchableOpacity>
-            </View>
-            <View style={styles.defaultView}>
-              <TouchableOpacity
-                style={styles.registerButton}
-                onPress={() => navigation.navigate("Register")}
-              >
-                <Text style={styles.defaultButtonText}>Register</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        </SafeAreaView>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={validationSchema}
+          onSubmit={(values) => handleLogin(values)}
+        >
+          {({
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            values,
+            errors,
+            touched,
+          }) => (
+            <SafeAreaView style={styles.inputContainer}>
+              <View style={styles.defaultView}>
+                <Text style={styles.label}>Email</Text>
+                <DefaultInput
+                  name={"email"}
+                  onBlur={handleBlur("email")}
+                  onChangeText={handleChange("email")}
+                />
+                {errors.email && touched.email && (
+                  <Text style={{ color: "red", opacity: 0.4 }}>
+                    {errors.email}
+                  </Text>
+                )}
+              </View>
+              <View style={styles.defaultView}>
+                <Text style={styles.label}>Password</Text>
+                <Password
+                  name={"password"}
+                  onBlur={handleBlur("password")}
+                  onChangeText={handleChange("password")}
+                />
+                {errors.password && touched.password && (
+                  <Text style={{ color: "red", opacity: 0.4 }}>
+                    {errors.password}
+                  </Text>
+                )}
+              </View>
+              <View style={styles.buttonContainer}>
+                <View style={styles.defaultView}>
+                  <TouchableOpacity
+                    style={styles.signInButton}
+                    onPress={handleSubmit}
+                  >
+                    <Text style={styles.defaultButtonText}>Sign In</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={styles.defaultView}>
+                  <TouchableOpacity
+                    style={styles.registerButton}
+                    onPress={() => navigation.navigate("Register")}
+                  >
+                    <Text style={styles.defaultButtonText}>Register</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </SafeAreaView>
+          )}
+        </Formik>
       </View>
     </Layout>
   );
@@ -76,7 +136,7 @@ const styles = StyleSheet.create({
     marginRight: "auto",
   },
   defaultView: {
-    flex: 1,
+    flex: 2,
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",

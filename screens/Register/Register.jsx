@@ -6,7 +6,9 @@ import DefaultInput from "../../components/DefaultInput/DefaultInput/DefaultInpu
 import Password from "../../components/DefaultInput/Password";
 import { Formik } from "formik";
 import * as yup from "yup";
-
+import { useDispatch } from "react-redux";
+import { login } from "../../Redux/actions";
+//form validation
 const validationSchema = yup.object().shape({
   email: yup.string().email("Invalid Email").required("Email is required"),
   password: yup
@@ -19,24 +21,42 @@ const validationSchema = yup.object().shape({
     .required("Passwords must match"),
 });
 
-const handleRegister = (values) => {
-  console.log(values);
-};
-
 export default function Register() {
-  const formData = {
-    email: "",
-    password: "",
-    reenterPassword: "",
+  //redux state
+  const dispatch = useDispatch();
+
+  //register POST
+  const handleRegister = async (values) => {
+    const requestBody = {
+      username: values.email,
+      password: values.password,
+    };
+    try {
+      const res = await fetch("http://10.0.2.2:5007/Auth/Register", {
+        method: "POST",
+        headers: {
+          Accept: "text/plain",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      });
+      if (res.ok) {
+        dispatch(login({ requestBody }));
+      }
+    } catch (err) {
+      alert("Something went wrong...");
+    }
   };
   return (
     <Layout>
       <View style={styles.container}>
         <Image source={require("../../assets/logo.png")} style={styles.logo} />
         <Formik
-          initialValues={formData}
+          initialValues={{ email: "", password: "", reenterPassword: "" }}
           validationSchema={validationSchema}
-          onSubmit={handleRegister}
+          onSubmit={(data) => {
+            handleRegister(data);
+          }}
         >
           {({
             handleChange,
