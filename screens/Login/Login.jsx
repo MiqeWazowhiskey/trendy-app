@@ -1,5 +1,6 @@
 import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Layout from "../../components/Layout";
 import { SafeAreaView } from "react-native-safe-area-context";
 import DefaultInput from "../../components/DefaultInput/DefaultInput/DefaultInput";
@@ -8,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/actions";
 import * as yup from "yup";
 import { Formik } from "formik";
+import useStoreToken from "../../hooks/useStoreToken";
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -27,13 +29,16 @@ export default function Login({ navigation }) {
         },
         body: JSON.stringify(requestBody),
       });
-      if (response.ok) {
+      if (response && response.ok) {
         const data = await response.json();
         dispatch(login(data));
+        const token = data.accessToken;
+        await AsyncStorage.setItem("token", token);
       } else {
         alert("Login failed");
       }
     } catch (err) {
+      console.log(err);
       alert("Something went wrong...");
     }
   };

@@ -53,7 +53,7 @@ function Tabs() {
         }}
       />
       <Tab.Screen
-        name="Orders"
+        name="Cart"
         component={Orders}
         options={{
           headerShown: false,
