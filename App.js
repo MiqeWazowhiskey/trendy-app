@@ -18,7 +18,7 @@ export default function App() {
 }
 
 const MainRouter = () => {
-  let dummyUser = useSelector((state) => state.user);
+  let user = useSelector((state) => state.user);
 
-  return dummyUser ? <AuthRouter /> : <UserRouter />;
+  return user ? <AuthRouter /> : <UserRouter />;
 };
