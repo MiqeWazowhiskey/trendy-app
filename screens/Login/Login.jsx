@@ -128,6 +128,8 @@ const styles = StyleSheet.create({
     width: 196,
     height: 16,
     resizeMode: "contain",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   label: {
     color: "#FF9956",
