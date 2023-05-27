@@ -9,7 +9,6 @@
     "web": "expo start --web"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.18.1",
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/native-stack": "^6.9.12",
@@ -24,7 +23,8 @@
     "react-native-vector-icons": "^9.2.0",
     "react-redux": "^8.0.5",
     "redux": "^4.2.1",
-    "yup": "^1.1.1"
+    "yup": "^1.1.1",
+    "@react-native-async-storage/async-storage": "1.17.11"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"

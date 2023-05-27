@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../Redux/actions";
 import * as yup from "yup";
 import { Formik } from "formik";
-import useStoreToken from "../../hooks/useStoreToken";
 
 export default function Login({ navigation }) {
   const dispatch = useDispatch();
@@ -32,7 +31,7 @@ export default function Login({ navigation }) {
       if (response && response.ok) {
         const data = await response.json();
         dispatch(login(data));
-        const token = data.accessToken;
+        const token = data.data.accessToken;
         await AsyncStorage.setItem("token", token);
       } else {
         alert("Login failed");
