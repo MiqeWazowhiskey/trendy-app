@@ -17,8 +17,8 @@ export default function ProductCard({ data, navigation }) {
     >
       <Image
         source={{
-          uri: data.picture
-            ? `${data.picture}`
+          uri: data.img
+            ? `${data.img}`
             : "https://images.unsplash.com/photo-1616530940355-351fabd9524b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80",
         }}
         style={styles.picture}

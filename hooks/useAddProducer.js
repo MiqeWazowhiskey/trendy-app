@@ -1,24 +1,19 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
 
-export default function useAddMovie(body) {
+export default function useAddProducer(body) {
   const [result, setResult] = useState();
   const requestBody = {
-    title: body.title,
-    imageURL: body.img,
-    description: body.desc,
-    price: body.price,
-    genre: body.genres,
-    release_date: body.release_date,
-    actors: body.actors,
-    cinemaId: body.cinema,
-    producerId: body.producer,
+    name: body.name,
+    profilePictureURL: body.profilePictureURL,
+    bio: body.bio,
+    movies: body.movies,
   };
   useEffect(() => {
     const postData = async () => {
       try {
         const token = await AsyncStorage.getItem("token");
-        await fetch("https://10.0.2.2:7027/api/Movies", {
+        await fetch("http://10.0.2.2:5007/api/Producers", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
