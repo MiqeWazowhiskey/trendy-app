@@ -20,7 +20,7 @@ export default function useGetMovies({ body }) {
             description: body.desc,
             price: body.price,
             genre: body.genres,
-            datePublished: Date.now(),
+            release_date: body.release_date,
             actors: body.actors,
             cinemaId: body.cinema,
             producerId: body.producer,
