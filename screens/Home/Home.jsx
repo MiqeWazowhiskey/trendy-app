@@ -1,20 +1,16 @@
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { StyleSheet, View, Image } from "react-native";
 import React from "react";
 import Layout from "../../components/Layout";
-import { useDispatch } from "react-redux";
-import { logout } from "../../Redux/actions";
 import { ProductCard } from "../../components";
 import useGetMovies from "../../hooks/useGetMovies";
+import { Header } from "../../components";
 export default function Home({ navigation }) {
   const movies = useGetMovies();
+
   return (
     <Layout>
+      <Image source={require("../../assets/logo.png")} style={styles.logo} />
+      <Header />
       <View style={styles.cardContainer}>
         {movies &&
           movies.data.map((v, i) => {
@@ -28,7 +24,6 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   cardContainer: {
     flex: 1,
-    padding: 24,
     flexDirection: "row",
     flexWrap: "wrap",
     columnGap: 24,
@@ -42,5 +37,13 @@ const styles = StyleSheet.create({
   x: {
     width: "100%",
     height: "10%",
+  },
+  logo: {
+    height: "4%",
+    width: "50%",
+    resizeMode: "contain",
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 32,
   },
 });

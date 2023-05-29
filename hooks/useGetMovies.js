@@ -24,5 +24,5 @@ export default function useGetMovies() {
     fetchData();
   }, []);
 
-  return result;
+  return result != undefined && result;
 }
