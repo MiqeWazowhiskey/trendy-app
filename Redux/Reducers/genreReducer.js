@@ -1,5 +1,5 @@
 import { SELECT_GENRE } from "../actions";
-const initialState = { genre: "" };
+const initialState = { genre: null };
 
 export const genreReducer = (state = initialState, action) => {
   switch (action.type) {

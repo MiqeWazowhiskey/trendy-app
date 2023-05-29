@@ -1,21 +1,29 @@
-import { StyleSheet, View, Image } from "react-native";
+import { StyleSheet, View, Image, Dimensions } from "react-native";
 import React from "react";
 import Layout from "../../components/Layout";
 import { ProductCard } from "../../components";
 import useGetMovies from "../../hooks/useGetMovies";
 import { Header } from "../../components";
+import { useSelector } from "react-redux";
 export default function Home({ navigation }) {
   const movies = useGetMovies();
-
+  const genre = useSelector((state) => state.genre);
   return (
     <Layout>
       <Image source={require("../../assets/logo.png")} style={styles.logo} />
       <Header />
       <View style={styles.cardContainer}>
-        {movies &&
-          movies.data.map((v, i) => {
-            return <ProductCard key={i} data={v} navigation={navigation} />;
-          })}
+        {genre.genre
+          ? movies &&
+            movies.data
+              .filter((v) => v.genre === genre.genre)
+              .map((v, i) => {
+                return <ProductCard key={i} data={v} navigation={navigation} />;
+              })
+          : movies &&
+            movies.data.map((v, i) => {
+              return <ProductCard key={i} data={v} navigation={navigation} />;
+            })}
       </View>
     </Layout>
   );
@@ -30,16 +38,14 @@ const styles = StyleSheet.create({
     rowGap: 24,
     overflow: "scroll",
     width: "90%",
+    height: Dimensions.get("screen").height,
     marginLeft: "auto",
     marginRight: "auto",
     justifyContent: "center",
   },
-  x: {
-    width: "100%",
-    height: "10%",
-  },
+
   logo: {
-    height: "4%",
+    height: "10%",
     width: "50%",
     resizeMode: "contain",
     marginLeft: "auto",

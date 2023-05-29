@@ -7,7 +7,6 @@ import { selectGenre } from "../../Redux/actions";
 export default function Header() {
   const genres = useGetGenres();
   const dispatch = useDispatch();
-  const selectedGenre = useSelector((state) => state.genre);
   const handleSelect = (genre) => {
     dispatch(selectGenre(genre));
   };
@@ -19,12 +18,18 @@ export default function Header() {
             <TouchableOpacity
               key={i}
               style={styles.genreButton}
-              onPress={() => handleSelect(v.genreId)}
+              onPress={() => handleSelect(v.genreName)}
             >
               <Text style={styles.genreText}>{v && v.genreName}</Text>
             </TouchableOpacity>
           );
         })}
+      <TouchableOpacity
+        style={styles.genreButton}
+        onPress={() => handleSelect(null)}
+      >
+        <Text style={styles.genreText}>All</Text>
+      </TouchableOpacity>
     </View>
   );
 }
