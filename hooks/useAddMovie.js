@@ -9,7 +9,7 @@ export default function useAddMovie(body) {
     description: body.desc,
     price: body.price,
     genre: body.genres,
-    release_date: body.release_date,
+    datePublished: Date.now(),
     actors: body.actors,
     cinemaId: body.cinema,
     producerId: body.producer,

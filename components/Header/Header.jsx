@@ -3,7 +3,8 @@ import React from "react";
 import useGetGenres from "../../hooks/useGetGenres";
 import { useDispatch, useSelector } from "react-redux";
 import { selectGenre } from "../../Redux/actions";
-
+import { TextInput } from "react-native";
+import FontAwasome from "react-native-vector-icons/FontAwesome";
 export default function Header() {
   const genres = useGetGenres();
   const dispatch = useDispatch();
@@ -30,6 +31,19 @@ export default function Header() {
       >
         <Text style={styles.genreText}>All</Text>
       </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.searchButton}
+        onPress={() => handleSelect(null)}
+      >
+        <Text style={styles.genreText}>
+          <FontAwasome name="search" size={18} />
+        </Text>
+        <TextInput
+          style={styles.search}
+          placeholder={`Search`}
+          placeholderTextColor={"white"}
+        />
+      </TouchableOpacity>
     </View>
   );
 }
@@ -43,6 +57,7 @@ const styles = StyleSheet.create({
     gap: 12,
     justifyContent: "center",
     padding: 24,
+    alignItems: "center",
   },
   genreButton: {
     backgroundColor: "#FF2800",
@@ -52,5 +67,17 @@ const styles = StyleSheet.create({
   genreText: {
     color: "white",
     fontWeight: "bold",
+  },
+  search: {
+    color: "white",
+  },
+  searchButton: {
+    flexDirection: "row",
+    width: "70%",
+    backgroundColor: "#FF2800",
+    padding: 12,
+    borderRadius: 12,
+    columnGap: 12,
+    alignItems: "center",
   },
 });
