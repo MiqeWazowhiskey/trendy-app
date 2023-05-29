@@ -1,15 +1,26 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import useGetGenres from "../../hooks/useGetGenres";
+import { useDispatch, useSelector } from "react-redux";
+import { selectGenre } from "../../Redux/actions";
 
 export default function Header() {
   const genres = useGetGenres();
+  const dispatch = useDispatch();
+  const selectedGenre = useSelector((state) => state.genre);
+  const handleSelect = (genre) => {
+    dispatch(selectGenre(genre));
+  };
   return (
     <View style={styles.container}>
       {genres &&
         genres.map((v, i) => {
           return (
-            <TouchableOpacity key={i} style={styles.genreButton}>
+            <TouchableOpacity
+              key={i}
+              style={styles.genreButton}
+              onPress={() => handleSelect(v.genreId)}
+            >
               <Text style={styles.genreText}>{v && v.genreName}</Text>
             </TouchableOpacity>
           );
