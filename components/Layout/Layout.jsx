@@ -1,7 +1,7 @@
-import { StyleSheet, Dimensions, View } from "react-native";
+import { StyleSheet, Dimensions, ScrollView } from "react-native";
 import React from "react";
 export default function Layout({ children }) {
-  return <View style={styles.container}>{children}</View>;
+  return <ScrollView style={styles.container}>{children}</ScrollView>;
 }
 
 const styles = StyleSheet.create({
@@ -10,7 +10,5 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
   },
 });

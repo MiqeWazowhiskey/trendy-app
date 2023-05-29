@@ -121,16 +121,19 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+    width: "100%",
+    alignItems: "center",
+    marginTop: "20%",
   },
   inputContainer: {
     flex: 1,
     width: 240,
     rowGap: 12,
+    marginTop: "30%",
   },
   logo: {
-    flex: 0.6,
     width: 196,
-    height: 16,
+    height: 100,
     resizeMode: "contain",
     marginLeft: "auto",
     marginRight: "auto",
@@ -172,5 +175,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flex: 4,
     flexDirection: "row",
+    marginTop: "50%",
   },
 });

@@ -128,6 +128,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: "column",
+    width: "100%",
+    alignItems: "center",
+    marginTop: "20%",
   },
   inputContainer: {
     flex: 1,
@@ -135,10 +138,11 @@ const styles = StyleSheet.create({
     rowGap: 72,
   },
   logo: {
-    flex: 0.6,
     width: 196,
-    height: 16,
+    height: 100,
     resizeMode: "contain",
+    marginLeft: "auto",
+    marginRight: "auto",
   },
   label: {
     color: "#FF9956",

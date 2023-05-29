@@ -17,20 +17,26 @@ export default function ProductCard({ data, navigation }) {
     >
       <Image
         source={{
-          uri: data.img
-            ? `${data.img}`
+          uri: data.imageURL
+            ? `${data.imageURL}`
             : "https://images.unsplash.com/photo-1616530940355-351fabd9524b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=435&q=80",
         }}
         style={styles.picture}
       />
 
       <View style={styles.textSection}>
-        <Text style={styles.label}>{`${data.label}`}</Text>
-        <Text style={styles.description}>{`${data.description}`}</Text>
-        <Text style={styles.price}>{`${data.price + `${" $"}`}`}</Text>
-        <TouchableOpacity style={styles.favIconContainer}>
-          <Entypo name="heart" size={14} style={styles.favIcon} />
-        </TouchableOpacity>
+        <Text style={styles.label}>
+          {data.title.length > 24
+            ? `${data.title.substring(0, 24)}...`
+            : `${data.title}`}
+        </Text>
+        <Text style={styles.description}>{`${data.description.substring(
+          0,
+          90
+        )}...`}</Text>
+        <View style={styles.bottomCardContainer}>
+          <Text style={styles.price}>{`${data.price + `${" $"}`}`}</Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -40,14 +46,14 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     alignItems: "center",
-    width: "40%",
-    height: "28%",
+    width: "45%",
+    height: "18%",
     borderRadius: 12,
     padding: 12,
     backgroundColor: "#F5EBDE",
   },
   picture: {
-    width: "60%",
+    width: "80%",
     height: "60%",
     resizeMode: "contain",
     borderRadius: 12,
@@ -57,14 +63,19 @@ const styles = StyleSheet.create({
     height: "40%",
     padding: 5,
   },
+  bottomCardContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   price: {
     fontSize: 12,
+    padding: 5,
     alignSelf: "flex-start",
     fontWeight: "bold",
     marginLeft: "auto",
     marginRight: "auto",
     textAlign: "center",
-    padding: 2,
   },
   description: {
     fontSize: 8,
@@ -76,6 +87,7 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     fontSize: 10,
+    height: "35%",
     alignSelf: "flex-start",
     marginLeft: "auto",
     marginRight: "auto",
