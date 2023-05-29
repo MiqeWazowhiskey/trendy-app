@@ -30,7 +30,11 @@ export default function Login({ navigation }) {
       });
       if (response && response.ok) {
         const data = await response.json();
-        dispatch(login(data));
+        const stateData = {
+          username: data.data.username,
+          id: data.data.id,
+        };
+        dispatch(login(stateData));
         const token = data.data.accessToken;
         await AsyncStorage.setItem("token", token);
       } else {

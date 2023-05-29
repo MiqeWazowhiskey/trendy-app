@@ -13,7 +13,6 @@ import { ProductCard } from "../../components";
 import useGetMovies from "../../hooks/useGetMovies";
 export default function Home({ navigation }) {
   const movies = useGetMovies();
-  console.log(movies);
   return (
     <Layout>
       <View style={styles.cardContainer}>

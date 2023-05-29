@@ -10,6 +10,8 @@ import {
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Entypo from "react-native-vector-icons/Entypo";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 const Tab = createBottomTabNavigator();
@@ -41,12 +43,16 @@ function Tabs() {
         }}
       />
       <Tab.Screen
-        name="Favorites"
+        name="Movies"
         component={Favorites}
         options={{
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
-            <Entypo name="heart" size={28} color={focused ? color : "gray"} />
+            <MaterialIcons
+              name="local-movies"
+              size={28}
+              color={focused ? color : "gray"}
+            />
           ),
           tabBarLabelStyle: { fontSize: 12 },
           tabBarActiveTintColor: "#FF9956",
