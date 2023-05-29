@@ -20,5 +20,5 @@ export default function App() {
 const MainRouter = () => {
   let user = useSelector((state) => state.user);
 
-  return user ? <AuthRouter /> : <UserRouter />;
+  return user.user ? <AuthRouter /> : <UserRouter />;
 };

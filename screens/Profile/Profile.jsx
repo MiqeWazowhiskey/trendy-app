@@ -14,7 +14,7 @@ export default function Profile() {
         <Ionicons name="person-circle-outline" size={256} color={"gray"} />
         <Text style={{ fontWeight: "bold", fontSize: 32 }}>Account :</Text>
         <Text style={{ fontWeight: "normal", fontSize: 24 }}>
-          {user.username}
+          {user.user.username}
         </Text>
         <TouchableOpacity
           style={styles.logoutButton}

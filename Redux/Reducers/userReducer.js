@@ -1,5 +1,5 @@
 import { LOGIN, LOGOUT } from "../actions";
-export const initialState = { user: null };
+const initialState = { user: null };
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
