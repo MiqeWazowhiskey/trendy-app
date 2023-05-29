@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5EBDE",
   },
   picture: {
-    width: "80%",
+    width: "50%",
     height: "60%",
     resizeMode: "contain",
     borderRadius: 12,
