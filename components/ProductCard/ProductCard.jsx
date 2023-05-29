@@ -87,7 +87,7 @@ const styles = StyleSheet.create({
   label: {
     fontWeight: "bold",
     fontSize: 10,
-    height: "35%",
+    height: "38%",
     alignSelf: "flex-start",
     marginLeft: "auto",
     marginRight: "auto",
