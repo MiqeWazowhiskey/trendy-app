@@ -6,6 +6,7 @@ import {
   Orders,
   Profile,
   ProductScreen,
+  AddMovie,
 } from "../../../screens";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Entypo from "react-native-vector-icons/Entypo";
@@ -23,6 +24,7 @@ export default function AuthRouter() {
       <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Tabs" component={Tabs} />
         <Stack.Screen name="ProductScreen" component={ProductScreen} />
+        <Stack.Screen name="AddMovieScreen" component={AddMovie} />
       </Stack.Navigator>
     </NavigationContainer>
   );

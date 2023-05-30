@@ -162,4 +162,11 @@ const styles = StyleSheet.create({
     marginRight: "auto",
     marginLeft: "auto",
   },
+  addMovieButton: {
+    width: 96,
+    height: 48,
+    padding: 15,
+    borderRadius: 12,
+    backgroundColor: "#FF9956",
+  },
 });

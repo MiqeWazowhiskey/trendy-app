@@ -1,7 +1,13 @@
 import { StyleSheet, TextInput } from "react-native";
 import React from "react";
 
-export default function DefaultInput({ onChangeText, onBlur, name, value }) {
+export default function DefaultInput({
+  onChangeText,
+  onBlur,
+  name,
+  value,
+  keyboardType,
+}) {
   return (
     <TextInput
       autoComplete="off"
@@ -10,6 +16,7 @@ export default function DefaultInput({ onChangeText, onBlur, name, value }) {
       onBlur={onBlur}
       name={name}
       value={value}
+      keyboardType={keyboardType || "default"}
     />
   );
 }
