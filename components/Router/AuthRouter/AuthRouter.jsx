@@ -34,6 +34,7 @@ function Tabs() {
         name="Home"
         component={Home}
         options={{
+          tabBarStyle: { height: 52 },
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
             <Entypo name="home" size={30} color={focused ? color : "gray"} />
@@ -46,6 +47,7 @@ function Tabs() {
         name="Movies"
         component={Favorites}
         options={{
+          tabBarStyle: { height: 52 },
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
             <MaterialIcons
@@ -62,6 +64,7 @@ function Tabs() {
         name="Cart"
         component={Orders}
         options={{
+          tabBarStyle: { height: 52 },
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
             <Entypo
@@ -78,6 +81,7 @@ function Tabs() {
         name="Profile"
         component={Profile}
         options={{
+          tabBarStyle: { height: 52 },
           headerShown: false,
           tabBarIcon: ({ focused, color }) => (
             <Ionicons

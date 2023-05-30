@@ -1,24 +1,21 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 
-export default function useGetMovies() {
+export default function useGetCart(id) {
   const [result, setResult] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = await AsyncStorage.getItem("token");
-        await fetch("http://10.0.2.2:5007/api/Movies/GetAll", {
+        await fetch(`http://10.0.2.2:5007/api/Cart/${id}`, {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
           },
         })
           .then((res) => res.json())
-          .then((json) => {
-            setResult(json.data);
-          });
+          .then((json) => setResult(json));
       } catch (error) {
         console.error(error);
       }
@@ -27,5 +24,5 @@ export default function useGetMovies() {
     fetchData();
   }, []);
 
-  return result != undefined && result;
+  return result;
 }

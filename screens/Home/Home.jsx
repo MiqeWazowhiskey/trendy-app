@@ -4,24 +4,35 @@ import Layout from "../../components/Layout";
 import { ProductCard } from "../../components";
 import useGetMovies from "../../hooks/useGetMovies";
 import { Header } from "../../components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { selectGenre } from "../../Redux/actions";
 export default function Home({ navigation }) {
-  const movies = useGetMovies();
   const genre = useSelector((state) => state.genre);
+  const movies = useGetMovies();
+  const input = useSelector((state) => state.search);
   return (
     <Layout>
       <Image source={require("../../assets/logo.png")} style={styles.logo} />
       <Header />
       <View style={styles.cardContainer}>
-        {genre.genre
+        {input.search && input.search.length > 2
           ? movies &&
-            movies.data
+            movies
+              .filter((v) =>
+                v.title.toLowerCase().includes(input.search.toLowerCase())
+              )
+              .map((v, i) => {
+                return <ProductCard key={i} data={v} navigation={navigation} />;
+              })
+          : genre.genre
+          ? movies &&
+            movies
               .filter((v) => v.genre === genre.genre)
               .map((v, i) => {
                 return <ProductCard key={i} data={v} navigation={navigation} />;
               })
           : movies &&
-            movies.data.map((v, i) => {
+            movies.map((v, i) => {
               return <ProductCard key={i} data={v} navigation={navigation} />;
             })}
       </View>

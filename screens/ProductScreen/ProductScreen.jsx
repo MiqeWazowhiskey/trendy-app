@@ -3,10 +3,40 @@ import React from "react";
 import Layout from "../../components/Layout";
 import MaterialIcon from "react-native-vector-icons/MaterialIcons";
 import { CommonActions } from "@react-navigation/native";
-import Entypo from "react-native-vector-icons/Entypo";
+import { useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import useGetMovies from "../../hooks/useGetMovies";
 
 export default function ProductScreen({ route, navigation }) {
   const { product } = route.params;
+  const user = useSelector((state) => state.user);
+  const postData = async () => {
+    const token = await AsyncStorage.getItem("token");
+
+    try {
+      const url = "http://10.0.2.2:5007/api/Cart";
+      const headers = {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+        Accept: "text/plain",
+      };
+      const body = JSON.stringify({
+        userId: user.user.id,
+        movieId: product.id,
+      });
+
+      await fetch(url, {
+        method: "POST",
+        headers: headers,
+        body: body,
+      })
+        .then((res) => res.json())
+        .then((json) => console.log(json));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Layout>
       <View style={styles.container}>
@@ -47,7 +77,7 @@ export default function ProductScreen({ route, navigation }) {
           <Text style={styles.price}>
             {product && product.price + `${" $"}`}
           </Text>
-          <TouchableOpacity style={styles.addButton}>
+          <TouchableOpacity style={styles.addButton} onPress={postData}>
             <Text style={styles.addButtonText}>Add to Cart</Text>
           </TouchableOpacity>
         </View>

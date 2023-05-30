@@ -1,8 +1,8 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import useGetGenres from "../../hooks/useGetGenres";
 import { useDispatch, useSelector } from "react-redux";
-import { selectGenre } from "../../Redux/actions";
+import { selectGenre, setSearch } from "../../Redux/actions";
 import { TextInput } from "react-native";
 import FontAwasome from "react-native-vector-icons/FontAwesome";
 export default function Header() {
@@ -11,6 +11,7 @@ export default function Header() {
   const handleSelect = (genre) => {
     dispatch(selectGenre(genre));
   };
+
   return (
     <View style={styles.container}>
       {genres &&
@@ -36,12 +37,16 @@ export default function Header() {
         onPress={() => handleSelect(null)}
       >
         <Text style={styles.genreText}>
-          <FontAwasome name="search" size={18} />
+          <FontAwasome name="search" size={18} color="#FF2800" />
         </Text>
         <TextInput
           style={styles.search}
           placeholder={`Search`}
-          placeholderTextColor={"white"}
+          placeholderTextColor={"#F29559"}
+          onChange={(event) => {
+            const text = event.nativeEvent.text;
+            dispatch(setSearch(text));
+          }}
         />
       </TouchableOpacity>
     </View>
@@ -69,15 +74,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   search: {
-    color: "white",
+    width: "100%",
+    color: "gray",
   },
   searchButton: {
     flexDirection: "row",
     width: "70%",
-    backgroundColor: "#FF2800",
     padding: 12,
     borderRadius: 12,
     columnGap: 12,
     alignItems: "center",
+    backgroundColor: `${"#FF2800"}${Math.round(0.2 * 255).toString(16)}`,
   },
 });
