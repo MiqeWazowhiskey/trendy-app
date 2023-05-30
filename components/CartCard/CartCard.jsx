@@ -17,7 +17,10 @@ export default function CartCard({ product, navigation }) {
         }
       >
         <View style={styles.imgContainer}>
-          <Image source={{ uri: `${product.imageURL}` }} style={styles.image} />
+          <Image
+            source={{ uri: product.imageURL && `${product.imageURL}` }}
+            style={styles.image}
+          />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.label}>

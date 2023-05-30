@@ -16,6 +16,8 @@ import DefaultInput from "../../components/DefaultInput/DefaultInput/DefaultInpu
 import { CommonActions } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useGetGenres from "../../hooks/useGetGenres";
+import useGetCinemas from "../../hooks/useGetCinemas";
+
 const validationSchema = yup.object().shape({
   title: yup.string().required("Name required..."),
   imageURL: yup
@@ -30,6 +32,8 @@ const validationSchema = yup.object().shape({
 });
 export default function AddMovie({ navigation }) {
   const genres = useGetGenres();
+  const cinemas = useGetCinemas();
+  console.log(cinemas);
   const postData = async (values) => {
     const body = {
       title: values.title,
@@ -37,6 +41,8 @@ export default function AddMovie({ navigation }) {
       price: values.price,
       genre: 1,
       imageURL: values.imageURL,
+      cinemaId: 4,
+      producerId: 1,
     };
     try {
       const token = await AsyncStorage.getItem("token");
