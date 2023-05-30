@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function useDeleteItemFromCart({ userId, movieId }) {
+export default function useDeleteItemFromCart(userId, movieId) {
   const fetchData = async () => {
     const token = await AsyncStorage.getItem("token");
     try {
@@ -13,7 +13,6 @@ export default function useDeleteItemFromCart({ userId, movieId }) {
       await fetch(url, {
         method: "DELETE",
         headers: headers,
-        body: body,
       })
         .then((res) => res.json())
         .then((json) => console.log(json));

@@ -51,12 +51,15 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   productContainer: {
-    height: "100%",
+    height: Dimensions.get("screen").height - 80,
+    flex: 1,
   },
-  productsScroll: { height: "100%", marginTop: "10%" },
+  productsScroll: {
+    marginTop: "10%",
+  },
   summaryText: {
     fontWeight: "bold",
-    fontSize: 24,
+    fontSize: 20,
     width: "50%",
     textAlign: "center",
     marginTop: "auto",
@@ -67,6 +70,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: "auto",
     padding: 12,
+    borderTopWidth: 2,
   },
   paymentButton: {
     width: "30%",

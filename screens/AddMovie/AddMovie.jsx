@@ -13,7 +13,6 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 
 import { SafeAreaView } from "react-native-safe-area-context";
 import DefaultInput from "../../components/DefaultInput/DefaultInput/DefaultInput";
-import { useSelector } from "react-redux";
 import { CommonActions } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useGetGenres from "../../hooks/useGetGenres";
