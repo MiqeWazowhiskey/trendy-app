@@ -37,7 +37,7 @@ export default function Header() {
         onPress={() => handleSelect(null)}
       >
         <Text style={styles.genreText}>
-          <FontAwasome name="search" size={18} color="#FF2800" />
+          <FontAwasome name="search" size={18} color="#EF4444" />
         </Text>
         <TextInput
           style={styles.search}
@@ -62,12 +62,15 @@ const styles = StyleSheet.create({
     gap: 12,
     justifyContent: "center",
     padding: 24,
+    paddingTop: 12,
     alignItems: "center",
   },
   genreButton: {
-    backgroundColor: "#FF2800",
+    backgroundColor: "#EF4444",
     padding: 12,
     borderRadius: 12,
+    paddingLeft: 16,
+    paddingRight: 18,
   },
   genreText: {
     color: "white",
@@ -75,15 +78,15 @@ const styles = StyleSheet.create({
   },
   search: {
     width: "100%",
-    color: "gray",
+    color: "#EF4444",
   },
   searchButton: {
     flexDirection: "row",
-    width: "70%",
+    width: "90%",
     padding: 12,
-    borderRadius: 12,
     columnGap: 12,
     alignItems: "center",
-    backgroundColor: `${"#FF2800"}${Math.round(0.2 * 255).toString(16)}`,
+    borderBottomWidth: 2,
+    borderColor: "#EF4444",
   },
 });

@@ -75,4 +75,7 @@ const styles = StyleSheet.create({
   textContainer: {
     height: "100%",
   },
+  genre: {
+    color: "gray",
+  },
 });

@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   addButton: {
     padding: 12,
-    backgroundColor: "#FF2800",
+    backgroundColor: "#EF4444",
     borderRadius: 12,
     alignSelf: "flex-start",
     margin: 5,
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 32,
     marginTop: 32,
-    color: "#FF9956",
+    color: "#EF4444",
     textShadowColor: "black",
     textAlign: "center",
   },
