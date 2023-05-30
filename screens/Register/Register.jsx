@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     height: 48,
     padding: 15,
     borderRadius: 12,
-    backgroundColor: "#FF2800",
+    backgroundColor: "#EF4444",
   },
   buttonContainer: {
     flex: 3,
