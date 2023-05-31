@@ -1,6 +1,6 @@
 ### Trendy-app
 Trendy is an eCommerce app built with React Native which uses the https://github.com/ulasiyorum/eCommerce backend.
-Thanks to [@ulasiyorum] (https://www.github.com/ulasiyorum) for contribution.
+Thanks to @ulasiyorum for contribution.
 
 ## Login Screen
 
