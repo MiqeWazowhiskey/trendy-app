@@ -1,35 +1,34 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useEffect } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
 
+async function postData(body) {
+  const token = await AsyncStorage.getItem("token");
+  const response = await axios.post(
+    "http://10.0.2.2:5007/api/Cinemas",
+    {
+      cinemaLogo: body.cinemaLogo,
+      name: body.name,
+      serviceRate: body.serviceRate,
+      movies: body.movies,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+  return response.data;
+}
+
+const queryClient = useQueryClient();
 export default function useAddCinema(body) {
-  const [result, setResult] = useState();
-  const requestBody = {
-    cinemaLogo: body.cinemaLogo,
-    name: body.name,
-    serviceRate: body.serviceRate,
-    movies: body.movies,
-  };
-  useEffect(() => {
-    const postData = async () => {
-      try {
-        const token = await AsyncStorage.getItem("token");
-        await fetch("http://10.0.2.2:5007/api/Cinemas", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(requestBody),
-        })
-          .then((res) => res.json())
-          .then((json) => setResult(json));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    postData();
-  }, []);
-
-  return result;
+  const mutation = useMutation({
+    mutationFn: () => postData(body),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cinema"] });
+    },
+  });
+  return mutation;
 }

@@ -1,6 +1,6 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useQuery } from "@tanstack/react-query";
-import { useState, useEffect } from "react";
+
 import axios from "axios";
 async function getCart(id) {
   const token = await AsyncStorage.getItem("token");

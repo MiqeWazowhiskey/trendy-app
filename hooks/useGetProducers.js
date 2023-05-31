@@ -1,28 +1,22 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
 
+async function fetchData() {
+  const token = await AsyncStorage.getItem("token");
+  const response = await axios.get(
+    "http://10.0.2.2:5007/api/Producers/GetAll",
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+}
 export default function useGetProducers() {
-  const [result, setResult] = useState();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = await AsyncStorage.getItem("token");
-        await fetch("http://10.0.2.2:5007/api/Producers/GetAll", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((json) => setResult(json));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return result;
+  const query = useQuery({
+    queryKey: ["producer"],
+    queryFn: fetchData,
+  });
+  return query;
 }

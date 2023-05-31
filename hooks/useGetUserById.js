@@ -1,28 +1,22 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useState, useEffect } from "react";
 
-export default function useGetUserById({ id }) {
-  const [result, setResult] = useState();
+async function fetchData(id) {
+  const token = await AsyncStorage.getItem("token");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = await AsyncStorage.getItem("token");
-        await fetch(`http://10.0.2.2:5007/api/User/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((json) => setResult(json));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return result;
+  const response = await axios.get(`http://10.0.2.2:5007/api/User/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+}
+export default function useGetUserById(id) {
+  const query = useQuery({
+    queryKey: ["user"],
+    queryFn: () => fetchData(id),
+  });
+  return query;
 }
