@@ -17,6 +17,8 @@ import { CommonActions } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useGetGenres from "../../hooks/useGetGenres";
 import useGetCinemas from "../../hooks/useGetCinemas";
+import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const validationSchema = yup.object().shape({
   title: yup.string().required("Name required..."),
@@ -33,33 +35,36 @@ const validationSchema = yup.object().shape({
 export default function AddMovie({ navigation }) {
   const genres = useGetGenres();
   const cinemas = useGetCinemas();
-  console.log(cinemas);
-  const postData = async (values) => {
-    const body = {
-      title: values.title,
-      description: values.description,
-      price: values.price,
-      genre: 1,
-      imageURL: values.imageURL,
-      cinemaId: 4,
-      producerId: 1,
-    };
-    try {
-      const token = await AsyncStorage.getItem("token");
-      await fetch("http://10.0.2.2:5007/api/Movies", {
-        method: "POST",
+  const postRequest = async (values) => {
+    const response = await axios.post(
+      "http://10.0.2.2:5007/api/Movies",
+      {
+        title: values.title,
+        description: values.description,
+        price: values.price,
+        genre: 1,
+        imageURL: values.imageURL,
+        cinemaId: 4,
+        producerId: 1,
+      },
+      {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(body),
-      })
-        .then((res) => res.json())
-        .then((json) => console.log(json));
-    } catch (err) {
-      console.log(err);
-      alert("Something went wrong...");
-    }
+      }
+    );
+    return response.data;
+  };
+  const queryClient = useQueryClient();
+  const postData = (values) => {
+    const mutation = useMutation({
+      mutationFn: () => postRequest(values),
+      onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["movies"] });
+      },
+    });
+    return mutation;
   };
   return (
     <Layout>
@@ -82,7 +87,8 @@ export default function AddMovie({ navigation }) {
             },
           }}
           onSubmit={(values) => {
-            postData(values);
+            const mutation = postData(values);
+            mutation.mutate();
           }}
         >
           {({
