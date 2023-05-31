@@ -1,31 +1,20 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import axios from "axios";
+async function getMovies() {
+  const token = await AsyncStorage.getItem("token");
+  const response = await axios.get("http://10.0.2.2:5007/api/Movies/GetAll", {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return response.data.data;
+}
 
 export default function useGetMovies() {
-  const [result, setResult] = useState();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = await AsyncStorage.getItem("token");
-        await fetch("http://10.0.2.2:5007/api/Movies/GetAll", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((json) => {
-            setResult(json.data);
-          });
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return result != undefined && result;
+  const query = useQuery({
+    queryKey: ["movies"],
+    queryFn: getMovies,
+  });
+  return query;
 }

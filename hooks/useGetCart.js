@@ -1,28 +1,20 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useQuery } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
+import axios from "axios";
+async function getCart(id) {
+  const token = await AsyncStorage.getItem("token");
+  const response = await axios.get(`http://10.0.2.2:5007/api/Cart/${id}`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  return response.data.data;
+}
 
 export default function useGetCart(id) {
-  const [result, setResult] = useState();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = await AsyncStorage.getItem("token");
-        await fetch(`http://10.0.2.2:5007/api/Cart/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-          .then((res) => res.json())
-          .then((json) => setResult(json));
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  return result;
+  const query = useQuery({
+    queryKey: ["cart"],
+    queryFn: () => getCart(id),
+  });
+  return query;
 }

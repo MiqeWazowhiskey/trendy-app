@@ -15,7 +15,7 @@ import { useSelector } from "react-redux";
 export default function Orders({ navigation }) {
   const user = useSelector((state) => state.user);
   const cart = useGetCart(user.user.id);
-
+  console.log(cart);
   return (
     <Layout>
       <View style={styles.container}>
@@ -23,7 +23,7 @@ export default function Orders({ navigation }) {
           <Text style={styles.messageText}>Enjoy the Show...</Text>
 
           <View style={styles.productContainer}>
-            {cart &&
+            {cart.isSuccess &&
               cart.data.movies.map((v, i) => {
                 return <CartCard key={i} product={v} navigation={navigation} />;
               })}
@@ -31,7 +31,7 @@ export default function Orders({ navigation }) {
         </ScrollView>
         <View style={styles.summaryContainer}>
           <Text style={styles.summaryText}>{`Summary: ${
-            cart && cart.data.price
+            cart.isSuccess && cart.data.price
           } $`}</Text>
           <TouchableOpacity style={styles.paymentButton}>
             <Text style={styles.paymentText}>Go to payment</Text>

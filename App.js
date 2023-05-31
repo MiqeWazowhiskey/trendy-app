@@ -6,14 +6,16 @@ import { store } from "./Redux/store";
 import UserRouter from "./components/Router/UserRouter";
 import AuthRouter from "./components/Router/AuthRouter";
 import { NavigationContainer } from "@react-navigation/native";
-
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const Stack = createNativeStackNavigator();
-
+const queryClient = new QueryClient();
 export default function App() {
   return (
-    <Provider store={store}>
-      <MainRouter />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={store}>
+        <MainRouter />
+      </Provider>
+    </QueryClientProvider>
   );
 }
 

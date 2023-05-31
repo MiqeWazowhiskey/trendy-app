@@ -2,13 +2,14 @@ import { StyleSheet, View, Image, Dimensions } from "react-native";
 import React from "react";
 import Layout from "../../components/Layout";
 import { ProductCard } from "../../components";
-import useGetMovies from "../../hooks/useGetMovies";
 import { Header } from "../../components";
 import { useDispatch, useSelector } from "react-redux";
 import { selectGenre } from "../../Redux/actions";
+import useGetMovies from "../../hooks/useGetMovies";
 export default function Home({ navigation }) {
   const genre = useSelector((state) => state.genre);
   const movies = useGetMovies();
+  console.log(movies);
   const input = useSelector((state) => state.search);
   return (
     <Layout>
@@ -16,8 +17,8 @@ export default function Home({ navigation }) {
       <Header />
       <View style={styles.cardContainer}>
         {input.search && input.search.length > 2
-          ? movies &&
-            movies
+          ? movies.isSuccess &&
+            movies.data
               .filter((v) =>
                 v.title.toLowerCase().includes(input.search.toLowerCase())
               )
@@ -25,14 +26,14 @@ export default function Home({ navigation }) {
                 return <ProductCard key={i} data={v} navigation={navigation} />;
               })
           : genre.genre
-          ? movies &&
-            movies
+          ? movies.isSuccess &&
+            movies.data
               .filter((v) => v.genre === genre.genre)
               .map((v, i) => {
                 return <ProductCard key={i} data={v} navigation={navigation} />;
               })
-          : movies &&
-            movies.map((v, i) => {
+          : movies.isSuccess &&
+            movies.data.map((v, i) => {
               return <ProductCard key={i} data={v} navigation={navigation} />;
             })}
       </View>

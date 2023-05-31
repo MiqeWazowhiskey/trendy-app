@@ -5,9 +5,9 @@ import useDeleteItemFromCart from "../../hooks/useDeleteItemFromCart";
 
 export default function CartCard({ product, navigation }) {
   const user = useSelector((state) => state.user);
-  const handleDelete = async () => {
-    useDeleteItemFromCart(user.user.id, product.id);
-  };
+
+  const mutation = useDeleteItemFromCart(user.user.id, product.id);
+
   return (
     product && (
       <TouchableOpacity
@@ -30,7 +30,10 @@ export default function CartCard({ product, navigation }) {
           </Text>
           <Text style={styles.priceText}>{`${product.price} $`}</Text>
           <Text style={styles.genre}>{product.genre}</Text>
-          <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
+          <TouchableOpacity
+            style={styles.deleteButton}
+            onPress={() => mutation.mutate()}
+          >
             <Text style={styles.deleteText}>X</Text>
           </TouchableOpacity>
         </View>
