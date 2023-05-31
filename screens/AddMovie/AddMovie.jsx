@@ -36,6 +36,7 @@ export default function AddMovie({ navigation }) {
   const genres = useGetGenres();
   const cinemas = useGetCinemas();
   const postRequest = async (values) => {
+    const token = await AsyncStorage.getItem("token");
     const response = await axios.post(
       "http://10.0.2.2:5007/api/Movies",
       {
