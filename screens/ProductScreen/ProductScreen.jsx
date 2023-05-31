@@ -6,36 +6,37 @@ import { CommonActions } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import useGetMovies from "../../hooks/useGetMovies";
+import axios from "axios";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export default function ProductScreen({ route, navigation }) {
   const { product } = route.params;
   const user = useSelector((state) => state.user);
-  const postData = async () => {
+  const postRequest = async () => {
     const token = await AsyncStorage.getItem("token");
-
-    try {
-      const url = "http://10.0.2.2:5007/api/Cart";
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-        Accept: "text/plain",
-      };
-      const body = JSON.stringify({
+    const response = await axios.post(
+      "http://10.0.2.2:5007/api/Cart",
+      {
         userId: user.user.id,
         movieId: product.id,
-      });
-
-      await fetch(url, {
-        method: "POST",
-        headers: headers,
-        body: body,
-      })
-        .then((res) => res.json())
-        .then((json) => console.log(json));
-    } catch (error) {
-      console.error(error);
-    }
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+          Accept: "text/plain",
+        },
+      }
+    );
+    return response.data;
   };
+  const queryClient = useQueryClient();
+  const mutation = useMutation({
+    mutationFn: postRequest,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["cart"] });
+    },
+  });
 
   return (
     <Layout>
@@ -77,7 +78,13 @@ export default function ProductScreen({ route, navigation }) {
           <Text style={styles.price}>
             {product && product.price + `${" $"}`}
           </Text>
-          <TouchableOpacity style={styles.addButton} onPress={postData}>
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => {
+              mutation.mutate();
+              mutation.isSuccess && alert("Movie added succesfully...");
+            }}
+          >
             <Text style={styles.addButtonText}>Add to Cart</Text>
           </TouchableOpacity>
         </View>
