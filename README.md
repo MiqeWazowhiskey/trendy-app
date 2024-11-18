@@ -23,10 +23,6 @@ Thanks to @ulasiyorum for contribution.
 
 ![AddMovieScreen](https://github.com/MiqeWazowhiskey/trendy-app/assets/91954535/d6425a2c-3822-46f4-92d7-5fa41c6e7484)
 
-## Profile Screen 
-
-![ProfileScreen](https://github.com/MiqeWazowhiskey/trendy-app/assets/91954535/b4c78f2b-f6dc-4050-90ac-353924af6067)
-
 # Todos:
 - Fix styling of homepage
 - Go to payment screen
